@@ -90,8 +90,8 @@ def predict(image, clf, res):
     f_r = resnet_extract(rgb, res)
 
     fused = np.hstack([0.5 * f_m, f_r])
-    fused = fused.reshape(1,-1)
-    p = clf.predict(np.array([fused]), verbose=0)[0]
+    fused = np.asarray(fused, dtype="float32").reshape(1,-1)
+    p = clf.predict(fused, verbose=0)[0]
 
     return np.argmax(p), p
 
